@@ -38,11 +38,7 @@ public class Employee {
 
 	private Date joiningDate;
 	
-	@OneToMany
-	@JoinTable(name="EMPVehicles",
-			joinColumns = @JoinColumn(name="EMPID"),
-			inverseJoinColumns= @JoinColumn(name="VEH_ID")
-			)
+	@OneToMany(mappedBy="employee")
 	private Collection<Vehicle> vehicle = new ArrayList<>();
 	
 	/*Annotation :
