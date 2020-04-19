@@ -43,13 +43,18 @@ public class TestFactory {
 		Vehicle v = new Vehicle(); 
 		v.setVehicleName("BMW");
 		
-		emp1.setVehicle(v);
+		Vehicle v1 = new Vehicle(); 
+		v1.setVehicleName("AUDI");
+		
+		emp1.getVehicle().add(v);
+		emp1.getVehicle().add(v1);
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(emp1);
 		session.save(v);
+		session.save(emp1);
+		session.save(v1);
 		session.getTransaction().commit();
 		session.close();
 		

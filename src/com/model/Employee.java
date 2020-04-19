@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,9 +38,8 @@ public class Employee {
 
 	private Date joiningDate;
 	
-	@OneToOne
-	@JoinColumn(name="VEHICLE_ID")
-	private Vehicle vehicle;
+	@OneToMany
+	private Collection<Vehicle> vehicle = new ArrayList<>();
 	
 	/*Annotation :
 		@Transient  if you don't want this particular to be part of database table column 
@@ -61,10 +61,10 @@ public class Employee {
 	
 
 
-	public Vehicle getVehicle() {
+	public Collection<Vehicle> getVehicle() {
 		return vehicle;
 	}
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(Collection<Vehicle> vehicle) {
 		this.vehicle = vehicle;
 	}
 	public Date getJoiningDate() {
