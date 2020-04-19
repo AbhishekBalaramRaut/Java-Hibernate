@@ -49,15 +49,14 @@ public class TestFactory {
 		emp1.getVehicle().add(v);
 		emp1.getVehicle().add(v1);
 		
-		v.getEmployee().add(emp1);
-		v1.getEmployee().add(emp1);
-		
+		v.setEmployee(emp1);
+		v1.setEmployee(emp1);
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(v);
-		session.save(emp1);
-		session.save(v1);
+		
+		session.persist(emp1);
+		
 		session.getTransaction().commit();
 		session.close();
 		

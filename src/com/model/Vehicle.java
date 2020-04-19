@@ -17,8 +17,8 @@ public class Vehicle {
 	private int vehicleId;
 	private String vehicleName;
 	
-	@ManyToMany(mappedBy="vehicle")
-	private Collection<Employee> employee = new ArrayList<>();
+	@ManyToOne
+	private Employee employee;
 	
 	public int getVehicleId() {
 		return vehicleId;
@@ -32,11 +32,12 @@ public class Vehicle {
 	public void setVehicleName(String vehicleName) {
 		this.vehicleName = vehicleName;
 	}
-	public Collection<Employee> getEmployee() {
+	public Employee getEmployee() {
 		return employee;
 	}
-	public void setEmployee(Collection<Employee> employee) {
+	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
 	
 }

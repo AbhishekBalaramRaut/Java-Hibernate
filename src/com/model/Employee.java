@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -39,11 +40,7 @@ public class Employee {
 
 	private Date joiningDate;
 	
-	@ManyToMany
-	@JoinTable(name="EmpSIDETable",
-	   joinColumns= @JoinColumn(name="EMPID"),
-	   inverseJoinColumns= @JoinColumn(name="VEHID"))
-	   
+	@OneToMany(cascade =CascadeType.PERSIST)
 	private Collection<Vehicle> vehicle = new ArrayList<>();
 	
 	/*Annotation :
