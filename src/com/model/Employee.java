@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,7 +39,11 @@ public class Employee {
 
 	private Date joiningDate;
 	
-	@OneToMany(mappedBy="employee")
+	@ManyToMany
+	@JoinTable(name="EmpSIDETable",
+	   joinColumns= @JoinColumn(name="EMPID"),
+	   inverseJoinColumns= @JoinColumn(name="VEHID"))
+	   
 	private Collection<Vehicle> vehicle = new ArrayList<>();
 	
 	/*Annotation :

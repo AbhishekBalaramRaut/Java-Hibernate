@@ -1,8 +1,12 @@
 package com.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,8 +17,8 @@ public class Vehicle {
 	private int vehicleId;
 	private String vehicleName;
 	
-	@ManyToOne
-	private Employee employee;
+	@ManyToMany(mappedBy="vehicle")
+	private Collection<Employee> employee = new ArrayList<>();
 	
 	public int getVehicleId() {
 		return vehicleId;
@@ -28,12 +32,11 @@ public class Vehicle {
 	public void setVehicleName(String vehicleName) {
 		this.vehicleName = vehicleName;
 	}
-	public Employee getEmployee() {
+	public Collection<Employee> getEmployee() {
 		return employee;
 	}
-	public void setEmployee(Employee employee) {
+	public void setEmployee(Collection<Employee> employee) {
 		this.employee = employee;
 	}
-	
 	
 }
