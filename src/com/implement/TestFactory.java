@@ -15,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 import com.model.Address;
 import com.model.Book;
 import com.model.Employee;
+import com.model.Vehicle;
 
 public class TestFactory {
 
@@ -38,13 +39,17 @@ public class TestFactory {
 		Employee emp1  = new Employee();
 		emp1.setEmployeeName("Abhishek");
 		emp1.setJoiningDate(new Date());
-		emp1.getAddressList().add(a1);
-		emp1.getAddressList().add(a2);
-
+		
+		Vehicle v = new Vehicle(); 
+		v.setVehicleName("BMW");
+		
+		emp1.setVehicle(v);
+		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(emp1);
+		session.save(v);
 		session.getTransaction().commit();
 		session.close();
 		
@@ -55,7 +60,7 @@ public class TestFactory {
 		session.getTransaction().commit();
 		session.close();
 		
-		System.out.println(emp1.getAddressList().size());
+	
 		
 		sessionFactory.close();
 		

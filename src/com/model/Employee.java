@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,15 +34,12 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int employeeId;
 	private String employeeName;
-	
-	@ElementCollection(fetch=FetchType.EAGER)
-	@JoinTable(name="Address_Table",
-				joinColumns = @JoinColumn(name="EmpId"))
-	/*@GenericGenerator(name="hilo-gen", strategy="hilo")
-	@CollectionId(columns = { @Column(name="ADDRESS_ID")}, generator = "hilo-gen")*/
-	private Collection<Address> addressList = new ArrayList<Address>();
-	
+
 	private Date joiningDate;
+	
+	@OneToOne
+	@JoinColumn(name="VEHICLE_ID")
+	private Vehicle vehicle;
 	
 	/*Annotation :
 		@Transient  if you don't want this particular to be part of database table column 
@@ -61,18 +59,14 @@ public class Employee {
 		this.employeeName = employeeName;
 	}
 	
-	
-	
 
 
-	public Collection<Address> getAddressList() {
-		return addressList;
+	public Vehicle getVehicle() {
+		return vehicle;
 	}
-
-	public void setAddressList(Collection<Address> addressList) {
-		this.addressList = addressList;
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
-
 	public Date getJoiningDate() {
 		return joiningDate;
 	}	
