@@ -2,6 +2,7 @@ package com.implement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,9 @@ public class TestFactory {
 		a2.setStreet(" shaniwar peth");
 
 		
-		Employee emp1  = new Employee("Abhishek");
+		Employee emp1  = new Employee();
+		emp1.setEmployeeName("Abhishek");
+		emp1.setJoiningDate(new Date());
 		emp1.getAddressList().add(a1);
 		emp1.getAddressList().add(a2);
 
@@ -44,8 +47,18 @@ public class TestFactory {
 		session.save(emp1);
 		session.getTransaction().commit();
 		session.close();
+		
+		
+		 session = sessionFactory.openSession();
+		session.beginTransaction();
+		emp1 = (Employee) session.get(Employee.class, 1);
+		session.getTransaction().commit();
+		session.close();
+		
+		System.out.println(emp1.getAddressList().size());
+		
 		sessionFactory.close();
-
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="EMPLOYEE")
 public class Employee {
@@ -29,10 +34,12 @@ public class Employee {
 	private int employeeId;
 	private String employeeName;
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@JoinTable(name="Address_Table",
 				joinColumns = @JoinColumn(name="EmpId"))
-	private Set<Address> addressList = new HashSet<Address>();
+	/*@GenericGenerator(name="hilo-gen", strategy="hilo")
+	@CollectionId(columns = { @Column(name="ADDRESS_ID")}, generator = "hilo-gen")*/
+	private Collection<Address> addressList = new ArrayList<Address>();
 	
 	private Date joiningDate;
 	
@@ -40,11 +47,6 @@ public class Employee {
 		@Transient  if you don't want this particular to be part of database table column 
 		@Temporal(TemporalType.DATE) if you dont want whole date to be saved with timestamp.
 */	
-	
-	public Employee(String employeeName) {
-		this.employeeName = employeeName;
-		this.joiningDate = new Date();
-	}
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -63,11 +65,11 @@ public class Employee {
 	
 
 
-	public Set<Address> getAddressList() {
+	public Collection<Address> getAddressList() {
 		return addressList;
 	}
 
-	public void setAddressList(Set<Address> addressList) {
+	public void setAddressList(Collection<Address> addressList) {
 		this.addressList = addressList;
 	}
 
