@@ -1,14 +1,22 @@
 package com.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,15 +28,11 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int employeeId;
 	private String employeeName;
-
-	private Address address;
 	
-	@AttributeOverrides({
-		@AttributeOverride(name="state",column=@Column(name="OFFICE_STATE")),
-		@AttributeOverride(name="city",column=@Column(name="OFFICE_CITY")),
-		@AttributeOverride(name="street",column=@Column(name="OFFICE_STREET")),
-	})
-	private Address officeAddress;
+	@ElementCollection
+	@JoinTable(name="Address_Table",
+				joinColumns = @JoinColumn(name="EmpId"))
+	private Set<Address> addressList = new HashSet<Address>();
 	
 	private Date joiningDate;
 	
@@ -54,25 +58,22 @@ public class Employee {
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
-	public Address getOfficeAddress() {
-		return officeAddress;
+	
+	
+	
+
+
+	public Set<Address> getAddressList() {
+		return addressList;
 	}
 
-	public void setOfficeAddress(Address officeAddress) {
-		this.officeAddress = officeAddress;
+	public void setAddressList(Set<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	public Date getJoiningDate() {
 		return joiningDate;
 	}	
-	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 	
 	
 	public void setJoiningDate(Date joiningDate) {
