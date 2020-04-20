@@ -30,8 +30,8 @@ public class TestFactory {
 		session.beginTransaction();
 		int myValue = 4;
 		
-		Query<String> query = session.createQuery("select employeeName from Employee where employeeId > ?0");
-		query.setParameter(0, Integer.valueOf(myValue));
+		Query<String> query = session.createQuery("select employeeName from Employee where employeeId > :emp");
+		query.setParameter("emp", Integer.valueOf(myValue));
 		List<String> empList = query.list();
 	    
 		session.getTransaction().commit();
