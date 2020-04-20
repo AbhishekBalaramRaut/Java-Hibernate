@@ -15,11 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-		name="VEH_TYPE",
-		discriminatorType = DiscriminatorType.STRING
-		)
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Vehicle {
 	
 	@Id
