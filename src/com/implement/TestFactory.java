@@ -29,13 +29,18 @@ public class TestFactory {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		Query<Employee> query = session.createQuery("from Employee");
+		Query<Employee> query = session.createQuery("from Employee where employeeId > 3");
+		query.setFirstResult(2);
+		query.setMaxResults(3);
 		List<Employee> empList = query.list();
 	    
 		session.getTransaction().commit();
 		session.close();
 		
-		System.out.println("Total employees "+empList.size());
+		for(Employee e1 : empList) {
+			System.out.println("Emp name: "+e1.getEmployeeName());
+		}
+		
 		sessionFactory.close();
 		
 	}
