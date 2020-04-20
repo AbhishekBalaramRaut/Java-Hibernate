@@ -17,7 +17,7 @@ import com.model.Book;
 import com.model.Employee;
 import com.model.FourWheeler;
 import com.model.TwoWheeler;
-import com.model.Vehicle;
+import com.model.Vehicle;	
 
 public class TestFactory {
 
@@ -42,29 +42,26 @@ public class TestFactory {
 		emp1.setEmployeeName("Abhishek");
 		emp1.setJoiningDate(new Date());
 		
-		Vehicle v = new Vehicle(); 
-		v.setVehicleName("BMW");
-		
-		TwoWheeler v1 = new TwoWheeler(); 
-		v1.setVehicleName("Activa");
-		v1.setSteeringHandle("ABC Handle");
-		FourWheeler v2 = new FourWheeler(); 
-		v2.setVehicleName("Swift");
-		v2.setSteeringWheel("Powerwheel c");
-		
-		
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.persist(v1);
-		session.persist(v);
-		session.persist(v2);
+	    emp1 = (Employee)session.get(Employee.class, 3);
+	    
 		session.getTransaction().commit();
 		session.close();
 		
+		
 
-
+		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+	    session.update(emp1);
+	    emp1.setEmployeeName("dummy");
+	    emp1.setEmployeeName("dummy1");
+		session.getTransaction().commit();
+		session.close();
+		
 		sessionFactory.close();
 		
 	}
