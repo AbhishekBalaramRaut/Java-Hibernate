@@ -3,6 +3,8 @@ package com.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,6 +16,10 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+		name="VEH_TYPE",
+		discriminatorType = DiscriminatorType.STRING
+		)
 public class Vehicle {
 	
 	@Id
