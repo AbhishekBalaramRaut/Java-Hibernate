@@ -56,12 +56,12 @@ public class TestFactory {
 		
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-	    session.update(emp1);
-	    emp1.setEmployeeName("dummy");
-	    emp1.setEmployeeName("dummy1");
+	    session.delete(emp1);
+	  
 		session.getTransaction().commit();
 		session.close();
 		
+		System.out.println(emp1);
 		sessionFactory.close();
 		
 	}
