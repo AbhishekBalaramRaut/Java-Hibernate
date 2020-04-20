@@ -46,6 +46,8 @@
       <mapping class = "com.model.Book"/>
       <mapping class = "com.model.Employee"/>
       <mapping class = "com.model.Vehicle"/>
+      <mapping class = "com.model.TwoWheeler"/>
+      <mapping class = "com.model.FourWheeler"/>
       
    </session-factory>
 </hibernate-configuration>

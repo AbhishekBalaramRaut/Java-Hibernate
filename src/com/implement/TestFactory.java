@@ -15,6 +15,8 @@ import org.hibernate.cfg.Configuration;
 import com.model.Address;
 import com.model.Book;
 import com.model.Employee;
+import com.model.FourWheeler;
+import com.model.TwoWheeler;
 import com.model.Vehicle;
 
 public class TestFactory {
@@ -43,32 +45,26 @@ public class TestFactory {
 		Vehicle v = new Vehicle(); 
 		v.setVehicleName("BMW");
 		
-		Vehicle v1 = new Vehicle(); 
-		v1.setVehicleName("AUDI");
+		TwoWheeler v1 = new TwoWheeler(); 
+		v1.setVehicleName("Activa");
+		v1.setSteeringHandle("ABC Handle");
+		FourWheeler v2 = new FourWheeler(); 
+		v2.setVehicleName("Swift");
+		v2.setSteeringWheel("Powerwheel c");
 		
-		emp1.getVehicle().add(v);
-		emp1.getVehicle().add(v1);
 		
-		v.setEmployee(emp1);
-		v1.setEmployee(emp1);
+		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		
-		session.persist(emp1);
-		
+		session.persist(v1);
+		session.persist(v);
+		session.persist(v2);
 		session.getTransaction().commit();
 		session.close();
 		
-		
-		 session = sessionFactory.openSession();
-		session.beginTransaction();
-		emp1 = (Employee) session.get(Employee.class, 1);
-		session.getTransaction().commit();
-		session.close();
-		
-	
-		
+
+
 		sessionFactory.close();
 		
 	}

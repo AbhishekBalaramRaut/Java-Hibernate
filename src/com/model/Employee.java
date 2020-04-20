@@ -40,8 +40,9 @@ public class Employee {
 
 	private Date joiningDate;
 	
-	@OneToMany(cascade =CascadeType.PERSIST)
-	private Collection<Vehicle> vehicle = new ArrayList<>();
+	@OneToOne
+	@JoinColumn(name="VEHID")
+	private Vehicle vehicle;
 	
 	/*Annotation :
 		@Transient  if you don't want this particular to be part of database table column 
@@ -63,10 +64,11 @@ public class Employee {
 	
 
 
-	public Collection<Vehicle> getVehicle() {
+
+	public Vehicle getVehicle() {
 		return vehicle;
 	}
-	public void setVehicle(Collection<Vehicle> vehicle) {
+	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 	public Date getJoiningDate() {
