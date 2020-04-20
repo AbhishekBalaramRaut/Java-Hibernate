@@ -28,17 +28,17 @@ public class TestFactory {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		int myValue = 4;
 		
-		Query<Employee> query = session.createQuery("from Employee where employeeId > 3");
-		query.setFirstResult(2);
-		query.setMaxResults(3);
-		List<Employee> empList = query.list();
+		Query<String> query = session.createQuery("select employeeName from Employee where employeeId > ?0");
+		query.setParameter(0, Integer.valueOf(myValue));
+		List<String> empList = query.list();
 	    
 		session.getTransaction().commit();
 		session.close();
 		
-		for(Employee e1 : empList) {
-			System.out.println("Emp name: "+e1.getEmployeeName());
+		for(String e1 : empList) {
+			System.out.println("Emp name: "+e1);
 		}
 		
 		sessionFactory.close();
