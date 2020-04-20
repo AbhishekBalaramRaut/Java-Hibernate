@@ -29,10 +29,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
 @Table(name="EMPLOYEE")
-@org.hibernate.annotations.Entity(selectBeforeUpdate=true)
+@SelectBeforeUpdate
 public class Employee {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
