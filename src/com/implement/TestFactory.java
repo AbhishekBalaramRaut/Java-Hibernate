@@ -7,11 +7,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.criteria.*;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.query.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 //import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+
 
 import com.model.Address;
 import com.model.Book;
@@ -29,17 +34,26 @@ public class TestFactory {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		int myValue = 4;
+
+		// Create CriteriaBuilder
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+
+		// Create CriteriaQuery
+		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+		Root<Employee> root = criteria.from(Employee.class);
 		
-		Query<String> query = session.getNamedNativeQuery("empBasedOnName");
-		query.setParameter("emp", Integer.valueOf(myValue));
-		List<String> empList = query.list();
+		criteria.select(root).where(builder.equal(root.get("employeeId"), 2));
+		
+		Query<Employee> q=session.createQuery(criteria);
+		
+		Employee emp = q.getSingleResult();
 	    
 		session.getTransaction().commit();
 		session.close();
 		
-		for(String e1 : empList) {
-			System.out.println("Emp name: "+e1);
-		}
+
+		System.out.println("Emp name: "+emp);
+		
 		
 		sessionFactory.close();
 		
