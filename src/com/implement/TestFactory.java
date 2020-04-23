@@ -42,17 +42,21 @@ public class TestFactory {
 		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
 		Root<Employee> root = criteria.from(Employee.class);
 		
-		criteria.select(root).where(builder.equal(root.get("employeeId"), 2));
-		
+		//criteria.select(root).where(builder.between(root.get("employeeId"), 4,6));
+		criteria.select(root).where(builder.and(builder.greaterThan(root.get("employeeId"), 4), 
+				builder.lessThan(root.get("employeeId"), 6)));
+
 		Query<Employee> q=session.createQuery(criteria);
 		
-		Employee emp = q.getSingleResult();
+		List<Employee> emp = (List<Employee>) q.getResultList();
 	    
 		session.getTransaction().commit();
 		session.close();
 		
-
-		System.out.println("Emp name: "+emp);
+		for(Employee e: emp) {
+			System.out.println("Emp name: "+e.getEmployeeName());
+		}
+		
 		
 		
 		sessionFactory.close();
