@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,6 +33,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
+@NamedQuery(name="empBasedOnName",query = "select employeeName from Employee where employeeId > :emp")
 @Table(name="EMPLOYEE")
 @SelectBeforeUpdate
 public class Employee {
