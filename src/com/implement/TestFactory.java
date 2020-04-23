@@ -30,7 +30,7 @@ public class TestFactory {
 		session.beginTransaction();
 		int myValue = 4;
 		
-		Query<String> query = session.getNamedQuery("empBasedOnName");
+		Query<String> query = session.getNamedNativeQuery("empBasedOnName");
 		query.setParameter("emp", Integer.valueOf(myValue));
 		List<String> empList = query.list();
 	    
