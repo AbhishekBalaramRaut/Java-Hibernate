@@ -29,29 +29,33 @@ public class TestFactory {
 
 	public static void main(String[] args) {
 
-		
+		Employee emp = new Employee();
+		emp.setEmployeeName("Abhi");
+		emp.setJoiningDate(new Date());
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Employee emp = session.get(Employee.class, 1);
-		
-	    
+		Query query = session.createQuery("from Employee where  employeeId  = :emp");
+		query.setParameter("emp", 10);
+		query.setCacheable(true);
+		List<Employee> myList = query.list();
+	   
 		session.getTransaction().commit();
 		session.close();
 		
 		
 		 session = sessionFactory.openSession();
 		 session.beginTransaction();
-		Employee emp1 = session.get(Employee.class, 1);
+			 query = session.createQuery("from Employee where employeeId = :emp");
+			 query.setCacheable(true);
+			query.setParameter("emp", 10);
+			
+			myList = query.list();
+			
 	    
 		session.getTransaction().commit();
 		session.close();
-		
-		System.out.println("Emp name: "+emp.getEmployeeName());
-		
-		
-		
-		
+				
 		sessionFactory.close();
 
 		
