@@ -33,33 +33,27 @@ public class TestFactory {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		int myValue = 4;
-
-		// Create CriteriaBuilder
-		CriteriaBuilder builder = session.getCriteriaBuilder();
-
-		// Create CriteriaQuery
-		CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
-		Root<Employee> root = criteria.from(Employee.class);
+		Employee emp = session.get(Employee.class, 1);
 		
-		//criteria.select(root).where(builder.between(root.get("employeeId"), 4,6));
-		criteria.select(root).where(builder.and(builder.greaterThan(root.get("employeeId"), 4), 
-				builder.lessThan(root.get("employeeId"), 6)));
-
-		Query<Employee> q=session.createQuery(criteria);
-		
-		List<Employee> emp = (List<Employee>) q.getResultList();
 	    
 		session.getTransaction().commit();
 		session.close();
 		
-		for(Employee e: emp) {
-			System.out.println("Emp name: "+e.getEmployeeName());
-		}
+		
+		 session = sessionFactory.openSession();
+		 session.beginTransaction();
+		Employee emp1 = session.get(Employee.class, 1);
+	    
+		session.getTransaction().commit();
+		session.close();
+		
+		System.out.println("Emp name: "+emp.getEmployeeName());
+		
 		
 		
 		
 		sessionFactory.close();
+
 		
 	}
 

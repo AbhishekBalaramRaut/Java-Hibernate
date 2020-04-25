@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -29,14 +30,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
-@NamedNativeQuery(name="empBasedOnName",query = "select employeeName from Employee where employeeId > :emp")
+@Cacheable
 @Table(name="EMPLOYEE")
-@SelectBeforeUpdate
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Employee {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
